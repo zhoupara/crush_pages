@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>王伟❤张欣怡的秘密</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: cursive;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .hidden { display: none; }
+        button {
+            background: #ff6b6b;
+            border: none;
+            padding: 15px 30px;
+            color: white;
+            border-radius: 25px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        button:hover { transform: scale(1.1); }
+        #finalText {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            animation: fadeIn 2s;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .heart {
+            color: #ff6b6b;
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 第一步：初始提示 -->
+        <div id="step1">
+            <h2>张欣怡，这里有个关于你的秘密...</h2>
+            <button onclick="showStep(2)">点击揭开秘密</button>
+        </div>
+
+        <!-- 第二步：回忆提示 -->
+        <div id="step2" class="hidden">
+            <h3>还记得我们第一次在拆弹猫上认识吗？</h3>
+            <button onclick="showStep(3)">继续回忆</button>
+        </div>
+
+        <!-- 第三步：动态爱心 -->
+        <div id="step3" class="hidden">
+            <div class="heart">❤</div>
+            <h3>每次见到你，心跳都会加速</h3>
+            <button onclick="showStep(4)">继续探索</button>
+        </div>
+
+        <!-- 最终表白 -->
+        <div id="step4" class="hidden">
+            <div id="finalText">
+                <h2>张欣怡</h2>
+                <p>从认识你到现在，<br>
+                你的陪伴照亮了我的世界<br>
+                我想和你一起...</p >
+                <div class="heart">❤</div>
+                <button onclick="showFinal()">点击接收重要信息</button>
+            </div>
+        </div>
+
+        <!-- 最终确认 -->
+        <div id="final" class="hidden">
+            <h1>你愿意成为王伟的女朋友吗？</h1>
+            <button onclick="answerYes()">我愿意！</button>
+            <button onclick="answerNo()" style="background: #aaa">再想想</button>
+        </div>
+    </div>
+
+    <script>
+        function showStep(step) {
+            document.querySelectorAll('[id^=step]').forEach(div => div.classList.add('hidden'));
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            
+            // 添加背景渐变变化
+            const colors = ['#ff9a9e', '#fad0c4', '#a8edea', '#fed6e3'];
+            document.body.style.background = `linear-gradient(45deg, ${colors[step-1]}, ${colors[step]})`;
+        }
+
+        function showFinal() {
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('final').classList.remove('hidden');
+            // 添加花瓣飘落效果
+            setInterval(createPetal, 100);
+        }
+
+        function answerYes() {
+            alert('🎉 王伟正在飞奔向你！');
+            location.reload();
+        }
+
+        function answerNo() {
+            alert('💔 这个按钮暂时不可用哦~');
+        }
+
+        // 花瓣动画
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.innerHTML = '🌸';
+            petal.style.position = 'fixed';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animation = `fall ${Math.random()*3+2}s linear`;
+            document.body.appendChild(petal);
+            
+            setTimeout(() => petal.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
